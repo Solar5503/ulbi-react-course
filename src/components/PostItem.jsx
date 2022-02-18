@@ -1,11 +1,11 @@
-const PostItem = ({ post }) => {
+const PostItem = (props) => {
   return (
     <div className="post">
       <div className="post__content">
         <strong>
-          {post.id}. {post.title}
+          {props.number}. {props.post.title}
         </strong>
-        <div>{post.body}</div>
+        <div>{props.post.body}</div>
       </div>
       <div className="post__btns">
         <button>Удалить</button>
