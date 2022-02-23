@@ -1,11 +1,23 @@
+import { useContext } from 'react';
 import MyButton from '../components/UI/button/MyButton';
 import MyInput from '../components/UI/input/MyInput';
+import { AuthContext } from '../context';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+  const { isAuth, setIsAuth } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const login = (e) => {
+    e.preventDefault();
+    setIsAuth(true);
+    navigate('/posts');
+    localStorage.setItem('auth', 'true');
+  };
   return (
     <div>
       <h1>Страница для логина</h1>
-      <form>
+      <form onSubmit={login}>
         <MyInput type="text" placeholder="Введите логин" />
         <MyInput type="password" placeholder="Введите пароль" />
         <MyButton>Войти</MyButton>

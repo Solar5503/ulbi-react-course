@@ -1,12 +1,16 @@
-import { Route, Routes, Navigate } from 'react-router-dom';
-import About from '../pages/About';
-import Error from '../pages/Error';
-import PostIdPage from '../pages/PostIdPage';
-import Posts from '../pages/Posts';
-import { publicRoutes, privateRoutes } from '../router/index';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { privateRoutes, publicRoutes } from '../router/index';
+import { useContext } from 'react';
+import { AuthContext } from '../context';
+import Loader from './UI/Loader/Loader';
 
 const AppRouter = () => {
-  const isAuth = false;
+  const { isAuth, isLoading } = useContext(AuthContext);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <Routes>
       <Route
@@ -22,14 +26,14 @@ const AppRouter = () => {
             <Route
               path={route.path}
               element={<route.component />}
-              key={index}
+              key={route.path}
             />
           ))
         : publicRoutes.map((route, index) => (
             <Route
               path={route.path}
               element={<route.component />}
-              key={index}
+              key={route.path}
             />
           ))}
 
